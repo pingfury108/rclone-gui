@@ -1,12 +1,24 @@
 [package]
 name = "rclone-gui"
-version = "0.0.1"
+version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+description = "A cross-platform GUI for rclone, built with GPUI (Zed)"
 
 [dependencies]
-eframe = "0.22.0"
-egui = "0.22.0"
-env_logger = "0.10.0"
-subprocess = "0.2.9"
+gpui = "=0.2.2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
+dirs = "6"
+ureq = { version = "3", features = ["json"] }
+zip = { version = "8", default-features = false, features = ["deflate"] }
+base64 = "0.22"
+rfd = "0.15"
+unicode-segmentation = "1"
+
+# GPUI 在完全无优化下滚动明显卡顿；提升 dev 优化级别保证流畅
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 2
